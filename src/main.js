@@ -12,6 +12,7 @@ import {
   faCalculator,
   faBook,
   faMusic,
+  faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
 // import './assets/main.css'
@@ -21,6 +22,7 @@ import "./style.css";
 library.add(faCalculator);
 library.add(faBook);
 library.add(faMusic);
+library.add(faShoppingCart);
 
 /* add font awesome icon component */
 Vue.component("font-awesome-icon", FontAwesomeIcon);

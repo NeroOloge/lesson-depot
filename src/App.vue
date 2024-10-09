@@ -3,8 +3,11 @@ import Lesson from "./components/Lesson.vue";
 </script>
 
 <template>
-  <div id="app" class="p-3">
-    <div class="flex justify-between">
+  <div id="app" class="">
+    <header class="flex justify-between mb-4 bg-gray-300 p-3 items-center">
+      <h1 class="font-bold text-2xl">Lesson Depot</h1>
+    </header>
+    <div class="flex justify-between p-3">
       <div>
         <p>Sort by</p>
         <div class="flex flex-col mb-5">
@@ -75,16 +78,11 @@ import Lesson from "./components/Lesson.vue";
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2">
         <div v-for="lesson in this.lessons">
-          <Lesson
-            :subject="lesson.subject"
-            :price="lesson.price"
-            :location="lesson.location"
-            :spaces="lesson.spaces"
-            :icon="lesson.icon"
-          />
+          <Lesson :lesson="lesson" :addToCart="addToCart" />
         </div>
       </div>
     </div>
+    <div>Cart: {{ cart.length }}</div>
   </div>
 </template>
 
@@ -94,6 +92,7 @@ export default {
     return {
       lessons: [
         {
+          id: 1,
           subject: "Maths",
           price: 100,
           location: "London",
@@ -101,6 +100,7 @@ export default {
           icon: "calculator",
         },
         {
+          id: 2,
           subject: "Maths",
           price: 90,
           location: "Oxford",
@@ -108,6 +108,7 @@ export default {
           icon: "calculator",
         },
         {
+          id: 3,
           subject: "English",
           price: 100,
           location: "London",
@@ -115,6 +116,7 @@ export default {
           icon: "book",
         },
         {
+          id: 4,
           subject: "English",
           price: 80,
           location: "York",
@@ -122,6 +124,7 @@ export default {
           icon: "book",
         },
         {
+          id: 5,
           subject: "Music",
           price: 60,
           location: "Bristol",
@@ -133,6 +136,7 @@ export default {
         attr: "",
         order: "",
       },
+      cart: [],
     };
   },
   methods: {
@@ -184,6 +188,13 @@ export default {
       }
 
       this.lessons = this.lessons.sort(compare);
+    },
+    addToCart: function (id) {
+      this.cart.push(id);
+      const lessonIndex = this.lessons.findIndex((l) => l.id === id);
+      const lesson = this.lessons.find((l) => l.id === id);
+      lesson.spaces--;
+      this.lessons[lessonIndex] = lesson;
     },
   },
 };
