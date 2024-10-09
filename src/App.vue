@@ -6,6 +6,13 @@ import Lesson from "./components/Lesson.vue";
   <div id="app" class="">
     <header class="flex justify-between mb-4 bg-gray-300 p-3 items-center">
       <h1 class="font-bold text-2xl">Lesson Depot</h1>
+      <button :disabled="cart.length < 1">
+        <font-awesome-icon
+          :icon="['fas', 'shopping-cart']"
+          size="lg"
+          v-bind:inverse="cart.length < 1"
+        />
+      </button>
     </header>
     <div class="flex justify-between p-3">
       <div>
