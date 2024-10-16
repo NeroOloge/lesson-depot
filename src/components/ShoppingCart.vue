@@ -1,5 +1,6 @@
 <script setup>
 import Lesson from "./Lesson.vue";
+import Checkout from "./Checkout.vue";
 
 defineProps({
   cart: { type: Array, required: true },
@@ -9,16 +10,19 @@ defineProps({
 
 <template>
   <div class="p-3">
-    <h1 class="text-3xl text-center">Shopping Cart</h1>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2">
-      <div v-for="lesson in cart">
-        <Lesson
-          :lesson="lesson"
-          :isCart="true"
-          :removeFromCart="removeFromCart"
-        />
+    <div class="mb-8">
+      <h1 class="text-3xl text-center mb-4">Shopping Cart</h1>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 justify-items-center">
+        <div v-for="lesson in cart" class="">
+          <Lesson
+            :lesson="lesson"
+            :isCart="true"
+            :removeFromCart="removeFromCart"
+          />
+        </div>
       </div>
     </div>
+    <Checkout></Checkout>
   </div>
 </template>
 

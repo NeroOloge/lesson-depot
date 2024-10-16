@@ -34,7 +34,7 @@ defineProps({
       </button>
       <button
         v-else
-        :disabled="lesson.spaces < 1"
+        :disabled="isAddToCartDisabled"
         class="px-2 bg-blue-500 border text-white w-[70%] disabled:bg-gray-400"
         v-on:click="() => addToCart(lesson.id)"
       >
@@ -48,6 +48,11 @@ defineProps({
 export default {
   data: function () {
     return {};
+  },
+  computed: {
+    isAddToCartDisabled: function () {
+      return this.lesson.spaces < 1;
+    },
   },
   methods: {},
 };
