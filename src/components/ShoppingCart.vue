@@ -27,6 +27,15 @@ export default {
   data: function () {
     return {};
   },
-  methods: {},
+  methods: {
+    removeFromCart: function (id) {
+      const cartItemIndex = this.cart.findIndex((c) => c.id === id);
+      const lessonIndex = this.lessons.findIndex((l) => l.id === id);
+      const lesson = this.lessons.find((l) => l.id === id);
+      this.cart.splice(cartItemIndex, 1);
+      lesson.spaces++;
+      this.lessons[lessonIndex] = lesson;
+    },
+  },
 };
 </script>
