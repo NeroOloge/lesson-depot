@@ -1,9 +1,14 @@
 <script setup>
 defineProps({
   lesson: { type: Object, required: true },
+  isCart: { type: Boolean, required: false },
   addToCart: {
     type: Function,
-    required: true,
+    required: false,
+  },
+  removeFromCart: {
+    type: Function,
+    required: false,
   },
 });
 </script>
@@ -21,6 +26,14 @@ defineProps({
     </div>
     <div class="text-center">
       <button
+        v-if="isCart"
+        class="px-2 bg-blue-500 border text-white w-[70%] disabled:bg-gray-400"
+        v-on:click="() => removeFromCart(lesson.id)"
+      >
+        Remove
+      </button>
+      <button
+        v-else
         :disabled="lesson.spaces < 1"
         class="px-2 bg-blue-500 border text-white w-[70%] disabled:bg-gray-400"
         v-on:click="() => addToCart(lesson.id)"
@@ -34,9 +47,7 @@ defineProps({
 <script>
 export default {
   data: function () {
-    return {
-      message: "Hello",
-    };
+    return {};
   },
   methods: {},
 };
