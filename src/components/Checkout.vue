@@ -52,9 +52,12 @@ export default {
   },
   methods: {
     checkout: function () {
-      const digitRegex = /^\d{10}$/;
-      if (!digitRegex.test(Number(this.phone)))
-        return alert("Phone has to be 10 or 11 digits long");
+      const phoneRegex = /^\d*$/;
+      const nameRegex = /^[a-zA-Z]*$/;
+      if (!phoneRegex.test(Number(this.phone)))
+        return alert("Phone has to be digits");
+      if (!nameRegex.test(this.name))
+        return alert("Name has to be letters only");
       alert("Your lesson order has been submitted");
     },
   },
