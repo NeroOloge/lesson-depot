@@ -19,8 +19,8 @@ defineProps({
         <p>Price: £{{ this.lesson.price }}</p>
         <p>Spaces: {{ cartItem.spaces }}</p>
       </div>
-      <div>
-        <font-awesome-icon :icon="['fas', this.lesson.icon]" size="5x" />
+      <div class="w-[30%]">
+        <img :src="this.image" :alt="this.lesson.image" />
       </div>
     </div>
     <div class="text-center">
@@ -40,10 +40,21 @@ export default {
     return {
       lesson: {},
       spaces: 0,
+      image: ``,
     };
   },
   created: function () {
     this.lesson = this.lessons.find((l) => l._id === this.lessonId);
+    fetch(`http://localhost:3000/images/${this.lesson.image}`).then((res) => {
+      res
+        .blob()
+        .then((blob) => {
+          const imageUrl = URL.createObjectURL(blob);
+          console.log(imageUrl);
+          this.image = imageUrl;
+        })
+        .catch((err) => console.error(err));
+    });
   },
   methods: {},
 };

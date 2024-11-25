@@ -83,20 +83,21 @@ export default {
         .then((res) => {
           res.json().then((data) => {
             console.log(data);
+            for (const lessonId of lessonIDs) {
+              const lesson = this.lessons.find((l) => l._id === lessonId);
+              fetch(`http://localhost:3000/lessons/${lessonId}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "PUT",
+                body: JSON.stringify({ spaces: lesson.spaces }),
+              });
+            }
             alert("Your lesson order has been submitted");
+            window.location.reload();
           });
         })
         .catch((err) => alert(err.message));
-      for (const lessonId of lessonIDs) {
-        const lesson = this.lessons.find((l) => l._id === lessonId);
-        fetch(`http://localhost:3000/lessons/${lessonId}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "PUT",
-          body: JSON.stringify({ spaces: lesson.spaces }),
-        });
-      }
     },
   },
 };

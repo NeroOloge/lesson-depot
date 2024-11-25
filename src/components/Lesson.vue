@@ -17,7 +17,9 @@ defineProps({
         <p>Price: £{{ lesson.price }}</p>
         <p>Spaces: {{ lesson.spaces }}</p>
       </div>
-      <div><font-awesome-icon :icon="['fas', lesson.icon]" size="5x" /></div>
+      <div class="w-[30%]">
+        <img :src="this.image" :alt="lesson.image" />
+      </div>
     </div>
     <div class="text-center">
       <button
@@ -34,7 +36,21 @@ defineProps({
 <script>
 export default {
   data: function () {
-    return {};
+    return {
+      image: ``,
+    };
+  },
+  created: function () {
+    fetch(`http://localhost:3000/images/${this.lesson.image}`).then((res) => {
+      res
+        .blob()
+        .then((blob) => {
+          const imageUrl = URL.createObjectURL(blob);
+          console.log(imageUrl);
+          this.image = imageUrl;
+        })
+        .catch((err) => console.error(err));
+    });
   },
   computed: {
     isAddToCartDisabled: function () {
