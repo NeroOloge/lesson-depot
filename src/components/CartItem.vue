@@ -50,7 +50,6 @@ export default {
         .blob()
         .then((blob) => {
           const imageUrl = URL.createObjectURL(blob);
-          console.log(imageUrl);
           this.image = imageUrl;
         })
         .catch((err) => console.error(err));
