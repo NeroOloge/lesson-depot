@@ -16,6 +16,14 @@ import ShoppingCart from "./components/ShoppingCart.vue";
         />
       </button>
     </header>
+    <div class="flex w-[100%] px-3">
+      <input
+        class="flex-1 border rounded-md focus:border-black outline-none px-3 py-3"
+        type="text"
+        placeholder="Search"
+        v-on:keyup="(e) => search(e.target.value)"
+      />
+    </div>
     <Lessons
       v-if="this.showLessonPage"
       :cart="this.cart"
@@ -55,6 +63,16 @@ export default {
     switchPage: function () {
       console.log("switching page");
       this.showLessonPage = !this.showLessonPage;
+    },
+    search: function (searchTerm) {
+      console.log(searchTerm);
+      fetch(`http://localhost:3000/search?searchTerm=${searchTerm}`).then(
+        (res) => {
+          res.json().then((data) => {
+            this.lessons = data;
+          });
+        }
+      );
     },
   },
 };
