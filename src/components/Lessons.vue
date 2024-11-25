@@ -145,12 +145,24 @@ export default {
 
       this.lessons = this.lessons.sort(compare);
     },
-    addToCart: function (id) {
-      const lessonIndex = this.lessons.findIndex((l) => l.id === id);
-      const lesson = this.lessons.find((l) => l.id === id);
+    addToCart: function (lessonId) {
+      const lessonIndex = this.lessons.findIndex((l) => l._id === lessonId);
+      const lesson = this.lessons[lessonIndex];
       lesson.spaces--;
       this.lessons[lessonIndex] = lesson;
-      this.cart.push({ ...lesson, cartItemId: this.cart.length + 1 });
+      const cartItemId = this.cart.findIndex((cl) => cl.lessonId === lessonId);
+      if (cartItemId < 0) {
+        const cartItem = {
+          spaces: 1,
+          id: this.cart.length + 1,
+          lessonId,
+        };
+        this.cart.push(cartItem);
+      } else {
+        const cartItem = this.cart[cartItemId];
+        cartItem.spaces++;
+        this.cart[cartItemId] = cartItem;
+      }
     },
   },
 };

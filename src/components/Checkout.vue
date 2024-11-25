@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+defineProps({
+  cart: { type: Array, required: true },
+  lessons: { type: Array, required: true },
+});
+</script>
 
 <template>
   <div>
@@ -54,11 +59,44 @@ export default {
     checkout: function () {
       const phoneRegex = /^\d*$/;
       const nameRegex = /^[a-zA-Z]*$/;
-      if (!phoneRegex.test(Number(this.phone)))
+      if (!phoneRegex.test(Number(this.phone))) {
         return alert("Phone has to be digits");
-      if (!nameRegex.test(this.name))
+      }
+      if (!nameRegex.test(this.name)) {
         return alert("Name has to be letters only");
-      alert("Your lesson order has been submitted");
+      }
+      const lessonIDs = this.cart.map((cartItem) => cartItem.lessonId);
+      const totalSpaces = this.cart.reduce((prev, acc) => prev + acc.spaces, 0);
+      const orderBody = {
+        name: this.name,
+        phone: this.phone,
+        lessonIDs,
+        totalSpaces,
+      };
+      fetch("http://localhost:3000/orders", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(orderBody),
+      })
+        .then((res) => {
+          res.json().then((data) => {
+            console.log(data);
+            alert("Your lesson order has been submitted");
+          });
+        })
+        .catch((err) => alert(err.message));
+      for (const lessonId of lessonIDs) {
+        const lesson = this.lessons.find((l) => l._id === lessonId);
+        fetch(`http://localhost:3000/lessons/${lessonId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+          body: JSON.stringify({ spaces: lesson.spaces }),
+        });
+      }
     },
   },
 };

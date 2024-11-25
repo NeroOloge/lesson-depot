@@ -1,12 +1,7 @@
 <script setup>
 defineProps({
   lesson: { type: Object, required: true },
-  isCart: { type: Boolean, required: false },
   addToCart: {
-    type: Function,
-    required: false,
-  },
-  removeFromCart: {
     type: Function,
     required: false,
   },
@@ -26,17 +21,9 @@ defineProps({
     </div>
     <div class="text-center">
       <button
-        v-if="isCart"
-        class="px-2 bg-blue-500 border text-white w-[70%] disabled:bg-gray-400"
-        v-on:click="() => removeFromCart(lesson.id)"
-      >
-        Remove
-      </button>
-      <button
-        v-else
         :disabled="isAddToCartDisabled"
         class="px-2 bg-blue-500 border text-white w-[70%] disabled:bg-gray-400"
-        v-on:click="() => addToCart(lesson.id)"
+        v-on:click="() => addToCart(lesson._id)"
       >
         Add to cart
       </button>
