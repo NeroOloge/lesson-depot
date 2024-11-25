@@ -1,11 +1,13 @@
 {
   "name": "lesson-depot",
   "version": "0.0.0",
+  "homepage": "https://NeroOloge.github.io/lesson-depot",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 4173",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -22,6 +24,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
+    "gh-pages": "^6.2.0",
     "postcss": "^8.4.47",
     "prettier": "^2.5.1",
     "tailwindcss": "^3.4.13",
