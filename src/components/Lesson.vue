@@ -1,4 +1,5 @@
 <script setup>
+import { baseUrl } from "../baseUrl";
 defineProps({
   lesson: { type: Object, required: true },
   addToCart: {
@@ -41,7 +42,7 @@ export default {
     };
   },
   created: function () {
-    fetch(`http://localhost:3000/images/${this.lesson.image}`).then((res) => {
+    fetch(`${baseUrl}/images/${this.lesson.image}`).then((res) => {
       res
         .blob()
         .then((blob) => {

@@ -1,6 +1,7 @@
 <script setup>
 import Lessons from "./components/Lessons.vue";
 import ShoppingCart from "./components/ShoppingCart.vue";
+import { baseUrl } from "./baseUrl";
 </script>
 
 <template>
@@ -16,7 +17,7 @@ import ShoppingCart from "./components/ShoppingCart.vue";
         />
       </button>
     </header>
-    <div class="flex w-[100%] px-3">
+    <div v-if="this.showLessonPage" class="flex w-[100%] px-3">
       <input
         class="flex-1 border rounded-md focus:border-black outline-none px-3 py-3"
         type="text"
@@ -48,7 +49,7 @@ export default {
   },
   created: function () {
     console.log("getting lessons");
-    fetch("http://localhost:3000/lessons").then((res) => {
+    fetch(`${baseUrl}/lessons`).then((res) => {
       res.json().then((data) => {
         this.lessons = data;
       });
@@ -66,13 +67,11 @@ export default {
     },
     search: function (searchTerm) {
       console.log(searchTerm);
-      fetch(`http://localhost:3000/search?searchTerm=${searchTerm}`).then(
-        (res) => {
-          res.json().then((data) => {
-            this.lessons = data;
-          });
-        }
-      );
+      fetch(`${baseUrl}/search?searchTerm=${searchTerm}`).then((res) => {
+        res.json().then((data) => {
+          this.lessons = data;
+        });
+      });
     },
   },
 };

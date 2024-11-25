@@ -1,4 +1,5 @@
 <script setup>
+import { baseUrl } from "../baseUrl";
 defineProps({
   lessonId: { type: String, required: true },
   lessons: { type: Array, required: true },
@@ -45,7 +46,7 @@ export default {
   },
   created: function () {
     this.lesson = this.lessons.find((l) => l._id === this.lessonId);
-    fetch(`http://localhost:3000/images/${this.lesson.image}`).then((res) => {
+    fetch(`${baseUrl}/images/${this.lesson.image}`).then((res) => {
       res
         .blob()
         .then((blob) => {

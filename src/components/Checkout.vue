@@ -1,4 +1,5 @@
 <script setup>
+import { baseUrl } from "../baseUrl";
 defineProps({
   cart: { type: Array, required: true },
   lessons: { type: Array, required: true },
@@ -73,7 +74,7 @@ export default {
         lessonIDs,
         totalSpaces,
       };
-      fetch("http://localhost:3000/orders", {
+      fetch(`${baseUrl}/orders`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -85,7 +86,7 @@ export default {
             console.log(data);
             for (const lessonId of lessonIDs) {
               const lesson = this.lessons.find((l) => l._id === lessonId);
-              fetch(`http://localhost:3000/lessons/${lessonId}`, {
+              fetch(`${baseUrl}/lessons/${lessonId}`, {
                 headers: {
                   "Content-Type": "application/json",
                 },
