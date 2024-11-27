@@ -70,7 +70,7 @@ export default {
       const totalSpaces = this.cart.reduce((prev, acc) => prev + acc.spaces, 0);
       const orderBody = {
         name: this.name,
-        phone: this.phone,
+        phone: Number(this.phone),
         lessonIDs,
         totalSpaces,
       };
